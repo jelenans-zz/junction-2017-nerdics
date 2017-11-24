@@ -7,4 +7,4 @@ To run the application locally follow these simple steps:
 3. Start the server:
    $ npm start
 
-** *I added node_moduoles to our repo for quicker develeopment so you can actually skip this step*
+** *I added node_modules to our repo for quicker develeopment so you can actually skip this step*
