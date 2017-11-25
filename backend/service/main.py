@@ -1,8 +1,24 @@
+import os
+
 from flask import Flask, request
 from urllib import quote_plus
 from requests import get
 
+DIR = os.path.dirname(os.path.realpath(__file__))
+TOKEN_PATH = os.path.join(DIR, 'token')
 app = Flask(__name__)
+
+def bbox_from_point(lat, lon):
+    # min_degree = 0.002253
+    min_degree = 1e-5
+    return [
+        "{0:.6f}".format(angle) for angle in [
+            lat - min_degree,
+            lon - min_degree,
+            lat + min_degree,
+            lon + min_degree
+        ]
+    ]
 
 
 class RomaniRequest(object):
@@ -10,7 +26,7 @@ class RomaniRequest(object):
 
     def __init__(self, **kwargs):
         package = 'com.lidialiker.ramaniapi'
-        with open('token') as f:
+        with open(TOKEN_PATH) as f:
             token = f.read().strip()
         self._params = {
             'token': token,
@@ -61,7 +77,11 @@ def capabilities(seriesName):
 
 @app.route('/feature_info/<string:seriesName>/<string:feature>', methods=['POST'])
 def feature_info(seriesName, feature):
-    bbox = ",".join(request.get_json())
+    lat, lon = request.get_json()
+    print lat, lon
+    bbox = ",".join(bbox_from_point(lat, lon))
+    print bbox
+
     return RomaniRequest(
         request='GetFeatureInfo',
         service='WMS',
@@ -70,10 +90,10 @@ def feature_info(seriesName, feature):
         query_layers=seriesName + '/' + feature,
         bbox=bbox,
         info_format='text/json',
-        width='256',
-        height='256',
-        x='0',
-        y='0'
+        width='10',
+        height='10',
+        x='1',
+        y='1'
     ).get()
 
 
@@ -95,4 +115,3 @@ def get_area(layer_id):
     ).get(
         ep="https://ramani.ujuizi.com/cloud/wms/ramaniddl/tilecache"
     )
-
