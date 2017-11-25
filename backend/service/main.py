@@ -52,7 +52,7 @@ class RomaniRequest(object):
         endpoint = ep or self.ENDPOINT
         print "{}?{}".format(endpoint, "&".join([
             "{}={}".format(k, v) for (k, v) in params_encoded.iteritems()]))
-        return get(endpoint, params=params_encoded).text
+        return get(endpoint, params=params_encoded).content
 
 @app.route("/")
 @crossdomain(origin='*')
@@ -121,22 +121,20 @@ def feature_info_reg(seriesName, feature):
     minLat, minLon, maxLat, maxLon = bbox_from_point(lat, lon)
 
     linestring = ",".join([
-        "{}%20{}".format(la, lo) for (la, lo) in [
-            (minLat, minLon),
-            (maxLat, minLon),
-            (maxLat, maxLon),
-            (maxLat, minLon),
-            (minLat, minLon)  # to close the square
+        "{}%20{}".format(lo, la) for (lo, la) in [
+            (minLon, minLat),
+            (minLon, maxLat),
+            (maxLon, maxLat),
+            (maxLon, minLat),
+            (maxLon, minLat)  # to close the square
         ]
     ])
-
-    print linestring
 
     response = RomaniRequest(**{
         'request': 'GetArea',
         'service': 'WMS',
         'return': 'aggregate',
-        'version': '1.1.1',
+        'version': '1.3.0',
         'crs': 'EPSG:4326',
         'layer': seriesName + '/' + feature,
         'linestring': linestring,
