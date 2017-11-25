@@ -126,7 +126,7 @@ def feature_info_reg(seriesName, feature):
             (minLon, maxLat),
             (maxLon, maxLat),
             (maxLon, minLat),
-            (maxLon, minLat)  # to close the square
+            (minLon, minLat)  # to close the square
         ]
     ])
 
@@ -134,7 +134,7 @@ def feature_info_reg(seriesName, feature):
         'request': 'GetArea',
         'service': 'WMS',
         'return': 'aggregate',
-        'version': '1.3.0',
+        'version': '1.1.1',
         'crs': 'EPSG:4326',
         'layer': seriesName + '/' + feature,
         'linestring': linestring,
