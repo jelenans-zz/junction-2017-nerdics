@@ -1,7 +1,11 @@
+import os
+
 from flask import Flask, request
 from urllib import quote_plus
 from requests import get
 
+DIR = os.path.dirname(os.path.realpath(__file__))
+TOKEN_PATH = os.path.join(DIR, 'token')
 app = Flask(__name__)
 
 def bbox_from_point(lat, lon):
@@ -22,7 +26,7 @@ class RomaniRequest(object):
 
     def __init__(self, **kwargs):
         package = 'com.lidialiker.ramaniapi'
-        with open('token') as f:
+        with open(TOKEN_PATH) as f:
             token = f.read().strip()
         self._params = {
             'token': token,
