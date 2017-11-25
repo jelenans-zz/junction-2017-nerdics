@@ -4,6 +4,8 @@ from flask import Flask, request
 from urllib import quote_plus
 from requests import get
 
+from util import crossdomain
+
 DIR = os.path.dirname(os.path.realpath(__file__))
 TOKEN_PATH = os.path.join(DIR, 'token')
 app = Flask(__name__)
@@ -49,6 +51,7 @@ class RomaniRequest(object):
 
 
 @app.route("/menu")
+@crossdomain(origin='*')
 def menu():
     return RomaniRequest(
         request='GetMetadata',
@@ -57,6 +60,7 @@ def menu():
 
 
 @app.route('/layer/<string:seriesName>/<string:feature>')
+@crossdomain(origin='*')
 def get_layer_details(seriesName, feature):
     return RomaniRequest(
         request='GetMetadata',
@@ -66,6 +70,7 @@ def get_layer_details(seriesName, feature):
 
 
 @app.route('/capabilities/<string:seriesName>')
+@crossdomain(origin='*')
 def capabilities(seriesName):
     return RomaniRequest(
         request='GetCapabilities',
@@ -76,6 +81,7 @@ def capabilities(seriesName):
 
 
 @app.route('/feature_info/<string:seriesName>/<string:feature>', methods=['POST'])
+@crossdomain(origin='*')
 def feature_info(seriesName, feature):
     lat, lon = request.get_json()
     print lat, lon
@@ -98,6 +104,7 @@ def feature_info(seriesName, feature):
 
 
 @app.route('/map/<string:layer_id>', methods=['POST'])
+@crossdomain(origin='*')
 def get_area(layer_id):
     bbox = ",".join(request.get_json())
 
