@@ -24,7 +24,8 @@ class RomaniRequest(object):
                           in self._params.iteritems()} if quoted \
                           else self._params
         # just because bbox is special
-        params_encoded['bbox'] = self._params['bbox']
+        if self._params.get('bbox'):
+            params_encoded['bbox'] = self._params['bbox']
         endpoint = ep or self.ENDPOINT
         print "{}?{}".format(endpoint, "&".join([
             "{}={}".format(k, v) for (k, v) in params_encoded.iteritems()]))
@@ -55,6 +56,24 @@ def capabilities(seriesName):
         service='WMS',
         version='1.3.0',
         dataset=seriesName
+    ).get()
+
+
+@app.route('/feature_info/<string:seriesName>/<string:feature>', methods=['POST'])
+def feature_info(seriesName, feature):
+    bbox = ",".join(request.get_json())
+    return RomaniRequest(
+        request='GetFeatureInfo',
+        service='WMS',
+        version='1.1.1',
+        srs='EPSG:4326',
+        query_layers=seriesName + '/' + feature,
+        bbox=bbox,
+        info_format='text/json',
+        width='256',
+        height='256',
+        x='0',
+        y='0'
     ).get()
 
 
