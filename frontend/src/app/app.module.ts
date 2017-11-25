@@ -3,19 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ROUTES } from './app.routes';
+import { AppRoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
-import '../styles/styles.scss';
-import '../styles/headings.css';
 
 /**
  * Main entry point
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  /**
+   * Other dependencies
+   */
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule
+  ],
   /**
    * Components and directives
    */
@@ -24,22 +28,7 @@ import '../styles/headings.css';
     AboutComponent,
     HomeComponent
   ],
-  /**
-   * Other dependencies
-   */
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, {
-      preloadingStrategy: PreloadAllModules
-    })
-  ],
-  /**
-   * Services
-   */
-  providers: [
-  ]
+  bootstrap: [ AppComponent ]
+
 })
-export class AppModule {}
+export class AppModule { }
