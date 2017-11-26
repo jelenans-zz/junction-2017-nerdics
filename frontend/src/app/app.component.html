@@ -1,6 +1,35 @@
-
+<!--
 <nav>
   <a routerLink="/home">Home</a>
   <a routerLink="/about">About</a>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+<div class="row">
+  <div class="col-sm-8" style="padding:0 !important;">
+    <div  id="googleMap" style="width:100%;height:98vh;">
+    </div>
+  </div>
+  <div class="col-sm-4" style="padding:0 !important;">
+   <div class="farms-heading" role="toolbar">
+      <div class="toolbar" role="toolbar">
+        <span class="title">Salmon farms</span>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <th>Farm</th>
+        <th>Phosphate [mole]</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let farm of farms" [ngClass]="getColor(farm.value)" (click)="pinpoint(farm)">
+          <td>
+            {{ farm.name }}
+          </td>
+          <td>
+            {{ farm.value }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
