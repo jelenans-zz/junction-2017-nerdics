@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
   private  initialBounds;
   private  currentBounds;
 
-  private farms;
+  public farms;
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
