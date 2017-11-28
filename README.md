@@ -1,5 +1,9 @@
 # nerdics-2017
 
+Screenshot of the solution:
+![Screenshot](solution.jpg)
+
+
 Workflow:
 
 1. $ git clone git@github.com:jelenans/nerdics-2017.git
