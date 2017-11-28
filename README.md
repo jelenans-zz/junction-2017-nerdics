@@ -3,9 +3,9 @@
 Screenshot of the solution:
 ![Screenshot](solution.jpg)
 
-Frontend Developed using Angular 4 and Google Maps API
+Frontend Developed using **Angular 4** and **Google Maps API**
 
-Backend developed using python and flask 
+Backend developed using **Python** and **Flask** 
 
 Workflow:
 
