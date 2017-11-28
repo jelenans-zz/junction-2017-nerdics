@@ -3,6 +3,7 @@
 Screenshot of the solution:
 ![Screenshot](solution.jpg)
 
+Developed using Angular 4 and Google Maps API
 
 Workflow:
 
