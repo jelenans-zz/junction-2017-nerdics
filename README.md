@@ -3,7 +3,8 @@
 Screenshot of the solution:
 ![Screenshot](solution.jpg)
 
-Developed using Angular 4 and Google Maps API
+Frontend Developed using Angular 4 and Google Maps API
+Backend developed using python and flask 
 
 Workflow:
 
